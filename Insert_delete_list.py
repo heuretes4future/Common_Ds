@@ -1,6 +1,15 @@
 import math 
 
 def insertion(insertnumber, prim_list):
+
+    if insertnumber in prim_list:
+        next_pos = 0
+        working_position = prim_list.index(insertnumber)
+        for current_position in prim_list[:working_position]:
+            next_pos +=1
+            prim_list.append(prim_list[-1-next_pos])
+        prim_list.insert(working_position,insertnumber)
+
     [prim_list[len(prim_list) - position].append(prim_list[len(prim_list)]) for position in range(len(prim_list)) if prim_list[position] == insertnumber]
     return insertnumber
 
