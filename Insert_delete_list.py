@@ -1,41 +1,46 @@
 import random 
 
-def insertion(insertnumber, prim_list):
-    #an easy insert type function
-    if insertnumber in prim_list:
-        next_pos = 0
-        working_position = prim_list.index(insertnumber)
-        for _ in prim_list:
-            curr = prim_list[-1-next_pos]
-            if curr == insertnumber:
-                prim_list[working_position] = insertnumber
-                return insertnumber
-            prim_list.append(curr)
-            next_pos +=1
 
-#def deletion(deletenumber, prim_list):
+def insertion(insertnumber, prim_list, positionnumber):
+    front_pos = 3
+    current_pos = 2
+    working_number = prim_list.index(positionnumber)
+    prim_list.append(prim_list[-1])
 
-#    return deletenumber
+    for index in range(len(prim_list[working_number:])):
+        if prim_list[-index-1] == positionnumber:
+            prim_list[-index-current_pos] = insertnumber
+            return prim_list
+        prim_list[-index-current_pos] = prim_list[-index-front_pos]
+    return 0
+
+def deletion(prim_list,position):
+    working_number = prim_list.index(position)
+    removed_index = prim_list.pop(prim_list[working_number])
+    for index in prim_list[removed_index:]:
+        prim_list[index] = prim_list[index+1]
+    
 
 
 def main():
-    list_size = random.randint(1, 100) 
+    list_size = random.randint(5, 20) 
     prim_list = [random.randint(1, 100) for _ in range(list_size)]
     print(f"Randomized list: {prim_list}")
+
     while True:
-        UserInput = input("which position do you want to insert in > ")
-        if UserInput.isdigit():
-            UserInput = int(UserInput)
-            try:
-           #     removed = deletion(UserInput, prim_list)
-                inserted = insertion(UserInput,prim_list)
-           #     input(f"value that has been manipulated: {removed}")
-            except ValueError:
-                print("Add a valid number")
+        user_input = input("Choose a number to insert > ")
+        position_input = input("Which position to insert > ")
+        deletion = input("Remove a number >")
+        try:
+            user_input = int(user_input)
+            position_input = int(position_input)
 
-        else:
-         print("Enter a valid number that exist in the list")
+            new_list = insertion(user_input, prim_list, position_input)
+            deleted_list = deletion(new_list, deletion)
+            print(f"New list: {deleted_list} (new item inserted at position {position_input})")
 
+        except ValueError as e:
+            print(f"Invalid input: {e}")
 
 if __name__ == "__main__":
     main()
