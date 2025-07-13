@@ -20,6 +20,8 @@ class binary_tree():
     def __init__(self):
         self.root = None
         self.current_node = None
+        self.current_node_left = None
+        self.current_node_right = None
 
     def create_tree(self,input_list):
         input_list.sort()
@@ -27,17 +29,25 @@ class binary_tree():
         right_list = []
         middle = len(input_list)//2
         for _ in range(middle):
-             if len(input_list) == 1:
+            if len(input_list) == 1:
                 self.root = node(input_list.pop())
-             left_list.append(input_list.pop())
-             right_list.append(input_list.deque.popleft())
+            left_list.append(input_list.pop())
+            right_list.append(input_list.deque.popleft())
+
         if self.root == None:
             self.root = node((left_list[-1] + left_list[-1]) // 2)
-        for _ in range(middle):
+    
+        self.root.left = self.current_node_left 
+        self.root.right = self.current_node_right
+        for index in range(1, middle + 1): 
             #From the root left and right should be connected to right_list[-1] and left_list[-1] since
-            #that will be the highest value, after that make sure all values are properly linked to eachother. 
-            pass
-
+            #when partioned that end will contain each highest values reason for -index. 
+            #another partion is needed to compare the two values on left/right
+            #backtracking might be needed
+            self.current_node_right = right_list.pop(right_list[-index])
+            self.current_node_left = left_list.pop(left_list[-index])
+            self.current_node_left = self.current_node
+            self.current_node_right = self.current_node
 
 def main():
     graphing = graph()
